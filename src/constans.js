@@ -1,4 +1,4 @@
-const PORT = 4000;
+const PORT = 22;
 const saltRounds = 12;
 const adminModelName = 'administrators';
 
