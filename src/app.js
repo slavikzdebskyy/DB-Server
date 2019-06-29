@@ -8,7 +8,7 @@ mongoose.connect('mongodb://node_server:8T0s5Q9j@ds341847.mlab.com:41847/oleh-sr
 
 const app = express();
 
-app.use('/graphql', expressGraphql({
+app.use('/', expressGraphql({
   schema: schema,
   graphiql: true,
 }));
