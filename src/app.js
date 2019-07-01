@@ -4,7 +4,7 @@ import express from 'express';
 // import mogoDBUrl from './credentials';
 import schema from './grahql/shema';
 
-mongoose.connect('mongodb://node_server:8T0s5Q9j@ds341847.mlab.com:41847/oleh-srore', {useNewUrlParser: true });
+mongoose.connect('mongodb://127.0.0.1:27017/oleh-db', {useNewUrlParser: true });
 
 const app = express();
 
