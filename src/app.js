@@ -18,11 +18,17 @@ const app = express();
 //   graphiql: true,
 // }));
 
+const corsOptions = {
+  'Content-Type': 'text/plain',
+  'Access-Control-Allow-Origin' : '*',
+  'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE'
+}
+
 
 
 app.use(bodyParser.urlencoded({extamded: false}));
 app.use(bodyParser.json());
-app.use(cors());
+app.use(cors(corsOptions));
 app.set('view engine', 'ejs');
 
 app.use(ROUTES.ADMIN.main, adminRoutes);
