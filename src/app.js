@@ -8,15 +8,15 @@ import adminRoutes from './routes/adminRoutes';
 import schema from './grahql/shema';
 import { ROUTES } from './constans';
 
-mongoose.connect(ROUTES.DB.devTest, {useNewUrlParser: true });
-// mongoose.connect(ROUTES.DB.main, {useNewUrlParser: true });
+// mongoose.connect(ROUTES.DB.devTest, {useNewUrlParser: true });
+mongoose.connect(ROUTES.DB.main, {useNewUrlParser: true });
 
 const app = express();
 
-// app.use(ROUTES.GRAPHQL.main, expressGraphql({
-//   schema: schema,
-//   graphiql: true,
-// }));
+app.use(ROUTES.GRAPHQL.main, expressGraphql({
+  schema: schema,
+  graphiql: true,
+}));
 
 const corsOptions = {  
   "origin": "*",
