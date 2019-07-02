@@ -1,16 +1,30 @@
 import expressGraphql from 'express-graphql';
 import mongoose from 'mongoose';
 import express from 'express';
-// import mogoDBUrl from './credentials';
-import schema from './grahql/shema';
+import bodyParser from 'body-parser';
+import cors from 'cors';
 
-mongoose.connect('mongodb://127.0.0.1:27017/oleh-db', {useNewUrlParser: true });
+import adminRoutes from './routes/adminRoutes';
+import schema from './grahql/shema';
+import { ROUTES } from './constans';
+
+// mongoose.connect(ROUTES.DB.devTest, {useNewUrlParser: true });
+mongoose.connect(ROUTES.DB.main, {useNewUrlParser: true });
 
 const app = express();
 
-app.use('/', expressGraphql({
+app.use(ROUTES.GRAPHQL.main, expressGraphql({
   schema: schema,
   graphiql: true,
 }));
+
+
+
+app.use(bodyParser.urlencoded({extamded: false}));
+app.use(bodyParser.json());
+app.use(cors());
+app.set('view engine', 'ejs');
+
+app.use(ROUTES.ADMIN.main, adminRoutes);
 
 export default app;
