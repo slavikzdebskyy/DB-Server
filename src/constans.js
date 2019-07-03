@@ -17,6 +17,11 @@ const ROUTES = {
   }
 }
 
+const MESSAGES = {
+  admin_not_registered: 'Administrator with this email not registered',
+  wrong_pswrd: 'Incorrect password'
+}
+
 
 export {
   PORT, 
@@ -24,4 +29,5 @@ export {
   adminModelName,
   saltRounds,
   ROUTES,
+  MESSAGES,
 };
