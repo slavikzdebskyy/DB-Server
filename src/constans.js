@@ -2,11 +2,13 @@ const PORT = 3000;
 const HOSTNAME = 'localhost';
 const saltRounds = 12;
 const adminModelName = 'administrators';
+const JWT_SECRET = 'service help admin panel'
 
 const ROUTES = {
+  test: '/test',
   ADMIN: {
     main: '/administrators',
-    login: '/login-admin',
+    login: '/login-admin',    
   },
   GRAPHQL: {
     main: '/graphql',
@@ -30,4 +32,5 @@ export {
   saltRounds,
   ROUTES,
   MESSAGES,
+  JWT_SECRET,
 };
