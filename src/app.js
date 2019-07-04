@@ -12,21 +12,19 @@ import { ROUTES } from './constans';
 mongoose.connect(ROUTES.DB.main, {useNewUrlParser: true });
 
 const app = express();
-
-app.use(ROUTES.GRAPHQL.main, expressGraphql({
-  schema: schema,
-  graphiql: true,
-}));
-
 const corsOptions = {  
   "origin": "*",
   "methods": "GET,HEAD,PUT,PATCH,POST,DELETE",
   "preflightContinue": false,
   "optionsSuccessStatus": 204
 }
+const graphqlConfig = {
+  schema: schema,
+  graphiql: true,
+}
 
 
-
+app.use(ROUTES.GRAPHQL.main, expressGraphql(graphqlConfig));
 app.use(bodyParser.urlencoded({extamded: false}));
 app.use(bodyParser.json());
 app.use(cors(corsOptions))
