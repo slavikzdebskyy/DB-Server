@@ -8,7 +8,8 @@ const ROUTES = {
   test: '/test',
   ADMIN: {
     main: '/administrators',
-    login: '/login-admin',    
+    login: '/login-admin',   
+    logout: '/logout-admin' 
   },
   GRAPHQL: {
     main: '/graphql',
@@ -21,7 +22,9 @@ const ROUTES = {
 
 const MESSAGES = {
   admin_not_registered: 'Administrator with this email not registered',
-  wrong_pswrd: 'Incorrect password'
+  wrong_pswrd: 'Incorrect password',
+  cant_login: 'Can\'t login. Something went wrong...',
+  cant_logout: 'Can\'t log out. Something went wrong...',
 }
 
 
