@@ -24,7 +24,7 @@ const graphqlConfig = {
 }
 
 
-app.use(ROUTES.GRAPHQL.main, expressGraphql(graphqlConfig));
+app.use(ROUTES.GRAPHQL.main, cors(corsOptions), expressGraphql(graphqlConfig));
 app.use(bodyParser.urlencoded({extamded: false}));
 app.use(bodyParser.json());
 app.use(cors(corsOptions))
