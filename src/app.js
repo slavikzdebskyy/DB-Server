@@ -24,10 +24,10 @@ const graphqlConfig = {
 }
 
 
-app.use(ROUTES.GRAPHQL.main, cors(corsOptions), expressGraphql(graphqlConfig));
+app.use(ROUTES.GRAPHQL.main, cors(), expressGraphql(graphqlConfig));
 app.use(bodyParser.urlencoded({extamded: false}));
 app.use(bodyParser.json());
-app.use(cors(corsOptions))
+app.use(cors())
 app.set('view engine', 'ejs');
 
 app.use(ROUTES.ADMIN.main, adminRoutes);

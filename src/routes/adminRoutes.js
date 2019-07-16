@@ -37,4 +37,8 @@ adminRoutes.post(ROUTES.ADMIN.logout, (req, res) => {
     .catch(() => res.status(404).json({ status: false, message: MESSAGES.cant_logout }))
 });
 
+adminRoutes.get(ROUTES.test, (req,res) => {
+  res.status(200).json({msg: 'Test done success'})
+})
+
 export default adminRoutes;
