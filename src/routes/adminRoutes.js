@@ -6,25 +6,40 @@ import jwt from 'jsonwebtoken';
 
 const adminRoutes = express.Router();
 
-adminRoutes.post(ROUTES.ADMIN.login, (req, res) => {
-  Admin.findOne({ email: req.body.email })
+adminRoutes.post(ROUTES.ADMIN.login, (request, response) => {
+  Admin.findOne({ email: request.body.email })
     .then(data => {
-      bcrypt.compare(req.body.password, data.password)
-        .then(result => {
-          if (result) {
-            const token = jwt.sign({ admin: data.email, exp: Math.floor(Date.now() / 1000) + (60 * 60 * 24) }, JWT_SECRET);
-            
-            data.tokens = [...data.tokens, token];
+      bcrypt.compare(request.body.password, data.password)
+        .then(isPasswordsEqual => {
+          if (isPasswordsEqual) {
+            const token = jwt.sign({ admin: data.email, exp: Math.floor(Date.now() / 1000) + (60 * 60 * 24) }, JWT_SECRET);  
+            const tokensNotExp = data.tokens.map(el => {
+              const bar = jwt.verify(el, JWT_SECRET);
+              if (bar.exp > bar.iat) {
+                return el;
+              }
+            });          
+            data.tokens = [...tokensNotExp, token];
             data.save()
-              .then(() => res.status(200).json({ status: result, token }))
-              .catch(() => res.status(401).json({ status: false, message: MESSAGES.cant_login }));
+              .then((adminData) => {
+                const admin = {
+                  lastName: adminData.lastName,
+                  firstName: adminData.firstName,
+                  permission: adminData.permission,
+                  nickName: adminData.nickName,
+                  email: adminData.email,
+                  avatar: adminData.avatar,
+                };
+                response.status(200).json({status: true, token, admin});
+            })
+              .catch(() => response.status(401).json({ status: false, message: MESSAGES.cant_login }));
           } else {
-            res.status(401).json({ status: result, message: MESSAGES.wrong_pswrd });
+            response.status(401).json({ status: result, message: MESSAGES.wrong_pswrd });
           }          
         }
       );
     })
-    .catch(() => res.status(401).json({ status: false, message: MESSAGES.admin_not_registered }));  
+    .catch(() => response.status(401).json({ status: false, message: MESSAGES.admin_not_registered }));  
 });
 
 adminRoutes.post(ROUTES.ADMIN.logout, (req, res) => {
