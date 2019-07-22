@@ -8,8 +8,8 @@ import adminRoutes from './routes/adminRoutes';
 import schema from './grahql/shema';
 import { ROUTES } from './constans';
 
-// mongoose.connect(ROUTES.DB.devTest, {useNewUrlParser: true });
-mongoose.connect(ROUTES.DB.main, {useNewUrlParser: true });
+mongoose.connect(ROUTES.DB.devTest, {useNewUrlParser: true });
+// mongoose.connect(ROUTES.DB.main, {useNewUrlParser: true });
 
 const app = express();
 const corsOptions = {  
@@ -24,10 +24,10 @@ const graphqlConfig = {
 }
 
 
-app.use(ROUTES.GRAPHQL.main, cors(), expressGraphql(graphqlConfig));
+app.use(ROUTES.GRAPHQL.main, cors(corsOptions), expressGraphql(graphqlConfig));
 app.use(bodyParser.urlencoded({extamded: false}));
 app.use(bodyParser.json());
-app.use(cors())
+app.use(cors(corsOptions))
 app.set('view engine', 'ejs');
 
 app.use(ROUTES.ADMIN.main, adminRoutes);
