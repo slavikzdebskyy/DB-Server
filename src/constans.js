@@ -9,7 +9,7 @@ const ROUTES = {
   ADMIN: {
     main: '/administrators',
     login: '/login-admin',   
-    logout: '/logout-admin' 
+    restorePswrd: '/restore-password' 
   },
   GRAPHQL: {
     main: '/graphql',
