@@ -10,6 +10,5 @@ export const AdministratorType = new graphql.GraphQLObjectType({
     avatar: { type: graphql.GraphQLString },
     password: { type: graphql.GraphQLString },
     permission: { type: graphql.GraphQLInt },
-    tokens: { type: new graphql.GraphQLList(graphql.GraphQLString) },
   }
 });

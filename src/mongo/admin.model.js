@@ -8,7 +8,6 @@ export default mongoose.model(adminModelName, {
   email: {type: String, require: true},
   avatar: {type: String},
   password: {type: String, require: true},
-  permission: {type: Number, require: true},
-  tokens: {type: Array},
+  permission: {type: Number, require: true}
 });
 
