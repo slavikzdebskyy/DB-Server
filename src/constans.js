@@ -2,7 +2,7 @@ const PORT = 3000;
 const HOSTNAME = 'localhost';
 const saltRounds = 12;
 const adminModelName = 'administrators';
-const JWT_SECRET = 'service help admin panel'
+const JWT_SECRET = 'service help admin panel';
 
 const ROUTES = {
   test: '/test',

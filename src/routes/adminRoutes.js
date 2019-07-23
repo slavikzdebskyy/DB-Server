@@ -1,8 +1,8 @@
 import express from 'express';
 import Admin from '../mongo/admin.model'
-import { ROUTES, MESSAGES, JWT_SECRET } from '../constans';
+import { ROUTES, MESSAGES } from '../constans';
 import bcrypt from 'bcrypt';
-import jwt from 'jsonwebtoken';
+import { verifyJwt, generateJwt, getDecoded } from '../libs/jwt-heleper';
 
 const adminRoutes = express.Router();
 
@@ -12,14 +12,7 @@ adminRoutes.post(ROUTES.ADMIN.login, (request, response) => {
       bcrypt.compare(request.body.password, data.password)
         .then(isPasswordsEqual => {
           if (isPasswordsEqual) {
-            const token = jwt.sign({ admin: data.email, exp: Math.floor(Date.now() / 1000) + (60 * 60 * 24) }, JWT_SECRET);  
-            const tokensNotExp = data.tokens.map(el => {
-              const bar = jwt.verify(el, JWT_SECRET);
-              if (bar.exp > bar.iat) {
-                return el;
-              }
-            });          
-            data.tokens = [...tokensNotExp, token];
+            const token = generateJwt({ admin: data.email });
             data.save()
               .then((adminData) => {
                 const admin = {
@@ -52,8 +45,22 @@ adminRoutes.post(ROUTES.ADMIN.logout, (req, res) => {
     .catch(() => res.status(404).json({ status: false, message: MESSAGES.cant_logout }))
 });
 
+
+
+
+
+
+
+
+
 adminRoutes.get(ROUTES.test, (req,res) => {
-  res.status(200).json({msg: 'Test done success'})
-})
+  const token = req.headers.authorization;
+  if (verifyJwt(token)) {
+    const decoded = getDecoded(token);
+    res.status(200).json({msg: 'Test done success', decoded})
+  } else {
+    res.status(401).json({msg: 'Test failed'})
+  }
+});
 
 export default adminRoutes;
