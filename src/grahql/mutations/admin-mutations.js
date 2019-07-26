@@ -1,9 +1,9 @@
 import bcrypt from 'bcrypt';
-import { saltRounds } from '../../constans';
+import { saltRounds } from '../../constants';
 import Admin from '../../mongo/admin.model';
 import * as graphql from 'graphql';
 import { AdministratorType } from '../types/admin.type';
-import { MESSAGES } from '../../constans';
+import { MESSAGES } from '../../constants';
 
 
 export const addAdmin = {
@@ -13,7 +13,7 @@ export const addAdmin = {
     lastName: { type: graphql.GraphQLNonNull(graphql.GraphQLString) },
     nickName: { type: graphql.GraphQLNonNull(graphql.GraphQLString) },
     email: { type: graphql.GraphQLNonNull(graphql.GraphQLString) },
-    avatar: { type: graphql.GraphQLNonNull(graphql.GraphQLString) },
+    avatar: { type: graphql.GraphQLString },
     password: { type: graphql.GraphQLNonNull(graphql.GraphQLString) },
     permission: { type: graphql.GraphQLNonNull(graphql.GraphQLInt) },
   },

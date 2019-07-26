@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import { MODEL_NAMES } from '../../constans';
+import { MODEL_NAMES } from '../../constants';
 
 export default mongoose.model(MODEL_NAMES.laptopModelName, {
   brand: {type: String, require: true},

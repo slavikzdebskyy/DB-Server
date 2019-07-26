@@ -1,5 +1,5 @@
 import express from 'express';
-import { ROUTES } from '../constans';
+import { ROUTES } from '../constants';
 import { verifyJwt, getDecoded } from '../libs/jwt-heleper';
 
 

@@ -1,6 +1,7 @@
 const PORT = 3000;
 const HOSTNAME = 'localhost';
 const saltRounds = 12;
+const SECURITY_CODE_LENGTH = 6;
 const JWT_SECRET = 'service help admin panel';
 
 const MODEL_NAMES = {
@@ -13,7 +14,9 @@ const ROUTES = {
   ADMIN: {
     main: '/administrators',
     login: '/login-admin',   
-    restorePswrd: '/restore-password' 
+    restorePswrd: '/restore-password',
+    checkCode: '/check-security-code',
+    changePassword: '/change-password',
   },
   GRAPHQL: {
     main: '/graphql',
@@ -30,6 +33,12 @@ const MESSAGES = {
   cant_login: 'Can\'t login. Something went wrong...',
   cant_logout: 'Can\'t log out. Something went wrong...',
   admin_exist: 'Administrator with this email already exists',
+  db_error: 'Error with data base',
+  code_success: 'Security code sent successfully',
+  wrong_code: 'Wrong security code',
+  success: 'Success',
+  pswrdsNotEqual: 'Passwords not equal',
+  pswrdChanged: 'Password successfully changed'
 }
 
 
@@ -41,4 +50,5 @@ export {
   ROUTES,
   MESSAGES,
   JWT_SECRET,
+  SECURITY_CODE_LENGTH
 };

@@ -1,9 +1,9 @@
 import bcrypt from 'bcrypt';
-import { saltRounds } from '../../constans';
+import { saltRounds } from '../../constants';
 import Laptop from '../../mongo/products-models/laptop.model';
 import * as graphql from 'graphql';
 import { LaptopType } from '../types/product-types/laptop.type';
-import { MESSAGES } from '../../constans';
+import { MESSAGES } from '../../constants';
 
 
 export const addLaptop = {

@@ -1,4 +1,4 @@
-import { JWT_SECRET } from '../constans';
+import { JWT_SECRET } from '../constants';
 import jwt from 'jsonwebtoken';
 
 export const verifyJwt = (token) => {

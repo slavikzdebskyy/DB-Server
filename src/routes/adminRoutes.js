@@ -1,12 +1,10 @@
 import express from 'express';
 import Admin from '../mongo/admin.model'
-import { ROUTES, MESSAGES } from '../constans';
+import { ROUTES, MESSAGES, SECURITY_CODE_LENGTH, saltRounds } from '../constants';
 import bcrypt from 'bcrypt';
 import { generateJwt } from '../libs/jwt-heleper';
-import nodemailer from 'nodemailer';
-const smtpTransport = require('nodemailer-smtp-transport'); 
-
-
+import { mailSender, mailOptionsRestore, mailOptionsChanged } from '../libs/mail.sender';
+import randomstring from 'randomstring';
 
 const adminRoutes = express.Router();
 
@@ -17,124 +15,87 @@ adminRoutes.post(ROUTES.ADMIN.login, (request, response) => {
         .then(isPasswordsEqual => {
           if (isPasswordsEqual) {
             const token = generateJwt({ admin: data.email });
-            data.save()
-              .then((adminData) => {
-                const admin = {
-                  lastName: adminData.lastName,
-                  firstName: adminData.firstName,
-                  permission: adminData.permission,
-                  nickName: adminData.nickName,
-                  email: adminData.email,
-                  avatar: adminData.avatar,
-                };
-                response.status(200).json({status: true, token, admin});
-            })
-              .catch(() => response.status(401).json({ status: false, message: MESSAGES.cant_login }));
+            const admin = {
+              lastName: data.lastName,
+              firstName: data.firstName,
+              permission: data.permission,
+              nickName: data.nickName,
+              email: data.email,
+              avatar: data.avatar,
+            };
+            response.status(200).json({status: isPasswordsEqual, token, admin});
           }  else {
             response.status(401).json({ status: isPasswordsEqual, message: MESSAGES.wrong_pswrd });
           }    
         })
-      .catch((err) => response.status(401).json({ status: err, message: MESSAGES.wrong_pswrd }));
+      .catch(err => response.status(401).json({ status: err, message: MESSAGES.wrong_pswrd }));
     })
     .catch(() => response.status(401).json({ status: false, message: MESSAGES.admin_not_registered }));  
 });
 
-adminRoutes.post(ROUTES.ADMIN.restorePswrd, (req, res) => {
-  // const transporter = nodemailer.createTransport(smtpTransport({
-  //   service: 'smtp.ukr.net',
-  //   port: 465,
-  //   secure: false,
-    // auth: {
-    //   user: 'zd_mouse@ukr.net',
-    //   pass: 'monster25pilot'
-    // }
-  // }));
-  const transporter = nodemailer.createTransport(smtpTransport({
-    host: 'smtp.ukr.net',
-    // port: 25,
-    secure: true,
-    // tls: {
-    //     rejectUnauthorized: false
-    // },
-    auth: {
-      user: 'zd_mouse@ukr.net',
-      pass: 'monster25pilot'
-    }
-  }));
-  
-  const mailOptions = {
-    from: 'zd_mouse@ukr.net',
-    to: 'zdebskyy.slavik@gmail.com',
-    subject: 'Sending Email using Node.js',
-    html: '<h1>Welcome</h1><p>That was easy!</p>'
-  };
-//   transporter.sendMail(mailOptions, (error, info) => {
-//     if (error) {
-//       return res.json({
-//         status: false,
-//         error
-//       });        
-//     } else {
-//       return res.json({
-//         status: true,
-//         message: `Message sent:  ${info.response}`
-//       });
-//     }
-    
-// });
+adminRoutes.post(ROUTES.ADMIN.restorePswrd, (request, response) => {
+  Admin.findOne({ email: request.body.email })
+    .then(admin => { 
+      if (admin) {
+        const code = randomstring.generate(SECURITY_CODE_LENGTH);
+        admin.securityCode = code;   
+        admin.save()
+          .then(newAdmin =>  mailSender.sendMail(mailOptionsRestore(newAdmin.email, code), (error, info) => {
+            if (error) {
+              response.status(409).json({status: false, error});
+            } else {
+              response.status(200).json({status: true, msg: MESSAGES.code_success});
+            }
+          }))
+          .catch(error => response.status(409).json({status: false, error, msg: MESSAGES.db_error}));
+      } else {
+        response.status(404).json({status: false, msg: MESSAGES.admin_not_registered});
+      }      
+    })
+    .catch(error => response.status(409).json({error, msg: MESSAGES.db_error}));   
+});
 
-  transporter.sendMail(mailOptions, function(error, info){
-    if (error) {
-      res.status(400).json({error});
-    } else {
-      res.status(400).json({info});
-    }
-  });
 
-  // async function main(){
+adminRoutes.post(ROUTES.ADMIN.checkCode, (request, response) => {
+  Admin.findOne({ email: request.body.email })
+    .then(admin => {
+      if (admin.securityCode && admin.securityCode === request.body.code) {
+        admin.securityCode = null;   
+        admin.save()
+        response.status(200).json({status: true, msg: MESSAGES.success});
+      } else {
+        admin.securityCode = null;   
+        admin.save()
+        response.status(403).json({status: false, msg: MESSAGES.wrong_code});
 
-  //   // Generate test SMTP service account from ethereal.email
-  //   // Only needed if you don't have a real mail account for testing
-  //   let testAccount = await nodemailer.createTestAccount();
-  
-  //   // create reusable transporter object using the default SMTP transport
-  //   let transporter = nodemailer.createTransport({
-  //     host: "smtp.ukr.net",
-  //     port: 465,
-  //     secure: false, // true for 465, false for other ports
-  //     auth: {
-  //       user: 'zd_mouse@ukr.net',
-  //       pass: 'monster25pilot'
-  //     }
-  //   });
-  
-  //   // send mail with defined transport object
-  //   let info = await transporter.sendMail({
-  //     from: '"Fred Foo 👻" <zd_mouse@ukr.net>', // sender address
-  //     to: "zdebskyy.slavik@gmail.com", // list of receivers
-  //     subject: "Hello ✔", // Subject line
-  //     text: "Hello world?", // plain text body
-  //     html: "<b>Hello world?</b>" // html body
-  //   });
-  
-  //   console.log("Message sent: %s", info.messageId);
-  //   // Message sent: <b658f8ca-6296-ccf4-8306-87d57a0b4321@example.com>
-  
-  //   // Preview only available when sending through an Ethereal account
-  //   console.log("Preview URL: %s", nodemailer.getTestMessageUrl(info));
-  //   // Preview URL: https://ethereal.email/message/WaQKMgKddxQDoou...
-  // }
-  
-  // main().catch(console.error);
-  
- 
-  // Admin.findOne({ email: req.body.email })
-  //   .then(data => {
-  //     data.tokens = data.tokens.filter(token => token !== req.headers.authorization);
-  //     data.save()
-  //       .then(() => res.status(200).json({ status: true }))
-  //   })
-  //   .catch(() => res.status(404).json({ status: false, message: MESSAGES.cant_logout }))
+      }
+    })
+    .catch(error => response.status(409).json({status: false, error, msg: MESSAGES.db_error})); 
+});
+
+
+adminRoutes.patch(ROUTES.ADMIN.changePassword, (request, response) => {
+  if (!request.body.password
+    || !request.body.passwordConfirm 
+    || request.body.password !== request.body.passwordConfirm) {
+      response.status(403).json({status: true, msg: MESSAGES.pswrdsNotEqual});
+    };
+  Admin.findOne({ email: request.body.email })
+    .then(admin => {
+      return bcrypt.hash(request.body.password, saltRounds)
+        .then(hash => {
+          admin.password = hash;
+          admin.save()
+          .then(newAdmin =>  mailSender.sendMail(mailOptionsChanged(newAdmin.email), (error, info) => {
+            if (error) {
+              response.status(409).json({status: false, error});
+            } else {
+              response.status(200).json({status: true, msg: MESSAGES.pswrdChanged});
+            };
+          }))
+        })     
+    })
+    .catch(error => response.status(409).json({status: false, error, msg: MESSAGES.db_error})); 
 });
 
 export default adminRoutes;
