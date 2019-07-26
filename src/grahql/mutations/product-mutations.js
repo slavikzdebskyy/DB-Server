@@ -1,10 +1,15 @@
+import bcrypt from 'bcrypt';
+import { saltRounds } from '../../constans';
+import Laptop from '../../mongo/products-models/laptop.model';
 import * as graphql from 'graphql';
+import { LaptopType } from '../types/product-types/laptop.type';
+import { MESSAGES } from '../../constans';
 
-export const LaptopType = new graphql.GraphQLObjectType({
-  name: 'Laptop',
-  fields: {
-    brand: { type: graphql.GraphQLString },    
-    type: { type: graphql.GraphQLString },
+
+export const addLaptop = {
+  type: LaptopType,
+  args: {
+    brand: { type: graphql.GraphQLString },
     color: { type: graphql.GraphQLString },
     condition: { type: graphql.GraphQLString },
     guarantee: { type: graphql.GraphQLString },
@@ -24,9 +29,24 @@ export const LaptopType = new graphql.GraphQLObjectType({
     options: { type: graphql.GraphQLString },
     description: { type: graphql.GraphQLString },
     images: { type: graphql.GraphQLString },
-    buyStatus: { type: graphql.GraphQLString },
-    payStatus: { type: graphql.GraphQLBoolean },
-    loacation: { type: graphql.GraphQLString },
+    status: { type: graphql.GraphQLString },
     seo: { type: graphql.GraphQLString },
+  },
+  resolve: (root, args, context, info) => {
+    const params = Object.assign({}, args);
+    // return bcrypt.hash(params.password, saltRounds)
+    //   .then(hash => Admin.findOne({'email': params.email})
+    //     .exec()
+    //     .then(res => {
+    //       if (res) {
+    //         throw new Error(MESSAGES.admin_exist);
+    //       }
+    //       params.password = hash;
+    //       const country = new Admin(params);
+    //       return country.save();
+    //     })          
+    // );   
+    const laptop = new Laptop(params);
+    return laptop.save();
   }
-});
+}

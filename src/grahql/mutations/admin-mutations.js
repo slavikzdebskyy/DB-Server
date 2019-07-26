@@ -27,8 +27,8 @@ export const addAdmin = {
             throw new Error(MESSAGES.admin_exist);
           }
           params.password = hash;
-          const country = new Admin(params);
-          return country.save();
+          const admin = new Admin(params);
+          return admin.save();
         })          
     );          
   }
