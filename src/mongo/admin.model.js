@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
-import { adminModelName } from '../constans';
+import { MODEL_NAMES } from '../constans';
 
-export default mongoose.model(adminModelName, {
+export default mongoose.model(MODEL_NAMES.adminModelName, {
   firstName: {type: String, require: true},
   lastName: {type: String, require: true},
   nickName: {type: String, require: true},

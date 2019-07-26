@@ -4,6 +4,7 @@ import { ROUTES, MESSAGES } from '../constans';
 import bcrypt from 'bcrypt';
 import { generateJwt } from '../libs/jwt-heleper';
 import nodemailer from 'nodemailer';
+const smtpTransport = require('nodemailer-smtp-transport'); 
 
 
 
@@ -39,15 +40,27 @@ adminRoutes.post(ROUTES.ADMIN.login, (request, response) => {
 });
 
 adminRoutes.post(ROUTES.ADMIN.restorePswrd, (req, res) => {
-  const transporter = nodemailer.createTransport({
-    service: 'smtp.gmail.com',
-    port: 465,
+  // const transporter = nodemailer.createTransport(smtpTransport({
+  //   service: 'smtp.ukr.net',
+  //   port: 465,
+  //   secure: false,
+    // auth: {
+    //   user: 'zd_mouse@ukr.net',
+    //   pass: 'monster25pilot'
+    // }
+  // }));
+  const transporter = nodemailer.createTransport(smtpTransport({
+    host: 'smtp.ukr.net',
+    // port: 25,
     secure: true,
+    // tls: {
+    //     rejectUnauthorized: false
+    // },
     auth: {
       user: 'zd_mouse@ukr.net',
-      pass: ''
+      pass: 'monster25pilot'
     }
-  });
+  }));
   
   const mailOptions = {
     from: 'zd_mouse@ukr.net',
@@ -55,6 +68,20 @@ adminRoutes.post(ROUTES.ADMIN.restorePswrd, (req, res) => {
     subject: 'Sending Email using Node.js',
     html: '<h1>Welcome</h1><p>That was easy!</p>'
   };
+//   transporter.sendMail(mailOptions, (error, info) => {
+//     if (error) {
+//       return res.json({
+//         status: false,
+//         error
+//       });        
+//     } else {
+//       return res.json({
+//         status: true,
+//         message: `Message sent:  ${info.response}`
+//       });
+//     }
+    
+// });
 
   transporter.sendMail(mailOptions, function(error, info){
     if (error) {

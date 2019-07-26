@@ -1,8 +1,12 @@
 const PORT = 3000;
 const HOSTNAME = 'localhost';
 const saltRounds = 12;
-const adminModelName = 'administrators';
 const JWT_SECRET = 'service help admin panel';
+
+const MODEL_NAMES = {
+  adminModelName: 'administrators',
+  laptopModelName: 'laptops',
+}
 
 const ROUTES = {
   test: '/test',
@@ -25,13 +29,14 @@ const MESSAGES = {
   wrong_pswrd: 'Incorrect password',
   cant_login: 'Can\'t login. Something went wrong...',
   cant_logout: 'Can\'t log out. Something went wrong...',
+  admin_exist: 'Administrator with this email already exists',
 }
 
 
 export {
   PORT, 
   HOSTNAME,
-  adminModelName,
+  MODEL_NAMES,
   saltRounds,
   ROUTES,
   MESSAGES,
