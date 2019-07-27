@@ -5,11 +5,12 @@ import bodyParser from 'body-parser';
 import cors from 'cors';
 
 import adminRoutes from './routes/adminRoutes';
+import testRoutes from './routes/testsRoutes';
 import schema from './grahql/shema';
-import { ROUTES } from './constans';
+import { ROUTES } from './constants';
 
-// mongoose.connect(ROUTES.DB.devTest, {useNewUrlParser: true });
-mongoose.connect(ROUTES.DB.main, {useNewUrlParser: true });
+mongoose.connect(ROUTES.DB.devTest, {useNewUrlParser: true });
+// mongoose.connect(ROUTES.DB.main, {useNewUrlParser: true });
 
 const app = express();
 const corsOptions = {  
@@ -31,5 +32,6 @@ app.use(cors(corsOptions))
 app.set('view engine', 'ejs');
 
 app.use(ROUTES.ADMIN.main, adminRoutes);
+app.use(ROUTES.test, testRoutes);
 
 export default app;

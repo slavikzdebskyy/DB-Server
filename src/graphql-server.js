@@ -1,5 +1,5 @@
 import app from './app';
-import { PORT, HOSTNAME } from './constans';
+import { PORT, HOSTNAME } from './constants';
 
 const currPort = process.env.PORT || PORT;
 
