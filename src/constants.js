@@ -7,6 +7,8 @@ const JWT_SECRET = 'service help admin panel';
 const MODEL_NAMES = {
   adminModelName: 'administrators',
   laptopModelName: 'laptops',
+  pc: 'ps',
+  monitor: 'monitor'
 }
 
 const ROUTES = {
