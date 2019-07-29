@@ -11,6 +11,12 @@ const MODEL_NAMES = {
   monitor: 'monitor'
 }
 
+const TYPE_NAMES = {
+  laptop: 'Laptop',
+  monitor: 'Monitor',
+  pc: 'PC',
+}
+
 const ROUTES = {
   test: '/test',
   ADMIN: {
@@ -52,5 +58,6 @@ export {
   ROUTES,
   MESSAGES,
   JWT_SECRET,
-  SECURITY_CODE_LENGTH
+  SECURITY_CODE_LENGTH,
+  TYPE_NAMES,
 };

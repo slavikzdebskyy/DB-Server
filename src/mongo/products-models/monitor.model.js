@@ -2,12 +2,13 @@ import mongoose from 'mongoose';
 import { MODEL_NAMES } from '../../constants';
 
 export default mongoose.model(MODEL_NAMES.monitor, {
+  barCode: {type: String, require: true},
   brand: {type: String, require: true},
   monitorType: {type: String, require: true},  
   monitorResolution: {type: String, require: true},
   monitorSize: {type: Number, require: true},
-  contrast: {type: Number, require: true},
-  brightness: {type: Number, require: true},
+  contrast: {type: Number},
+  brightness: {type: Number},
   light: {type: String, require: true},
   connectors: {type: String, require: true},  
   options: {type: String, require: true},
