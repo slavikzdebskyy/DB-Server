@@ -2,6 +2,7 @@ const PORT = 3000;
 const HOSTNAME = 'localhost';
 const saltRounds = 12;
 const SECURITY_CODE_LENGTH = 6;
+const CRYPTO_IMAGE_NAME_LENGTH = 16;
 const JWT_SECRET = 'service help admin panel';
 
 const MODEL_NAMES = {
@@ -15,6 +16,7 @@ const TYPE_NAMES = {
   laptop: 'Laptop',
   monitor: 'Monitor',
   pc: 'PC',
+  images: 'images',
 }
 
 const ROUTES = {
@@ -25,6 +27,14 @@ const ROUTES = {
     restorePswrd: '/restore-password',
     checkCode: '/check-security-code',
     changePassword: '/change-password',
+  },
+  IMAGES: {
+    main: '/images',
+    uploadAdmin: '/upload-admin',
+    getImage: '/image',
+    paramFileName: 'filename',
+    allImages: '/all-images',
+    paramId: 'id',
   },
   GRAPHQL: {
     main: '/graphql',
@@ -46,7 +56,10 @@ const MESSAGES = {
   wrong_code: 'Wrong security code',
   success: 'Success',
   pswrdsNotEqual: 'Passwords not equal',
-  pswrdChanged: 'Password successfully changed'
+  pswrdChanged: 'Password successfully changed',
+  noImgeErr: 'No image exist',
+  noFileErr: 'No file exist',  
+  noFilesErr: 'No files exist',
 }
 
 
@@ -60,4 +73,5 @@ export {
   JWT_SECRET,
   SECURITY_CODE_LENGTH,
   TYPE_NAMES,
+  CRYPTO_IMAGE_NAME_LENGTH,
 };
