@@ -38,26 +38,36 @@ const storage = new GridFsStorage({
 const upload = multer({ storage });
 
 imagesRoutes.post(ROUTES.IMAGES.uploadAdmin, upload.single('file'), (req, res) => {
+  
+  
   Admin.findOne({ email: req.body.email })
   .then(admin => {
+    if (admin.avatarId) {
+      gfs.remove({ _id: admin.avatarId, root: TYPE_NAMES.images }, (error, gridStore) => {
+          if (error) {
+            return res.status(404).json({ status: false, error });
+          } 
+        });
+    }
     admin.avatar = `${ROUTES.IMAGES.main}${ROUTES.IMAGES.getImage}/${req.file.filename}`;
+    admin.avatarId = req.file.id;
     admin.save()
-      .then(newAdmin => res.status(200).json({ file: req.file, admin: newAdmin }))
-      .catch(err => res.status(400).json({ err }))
+      .then(newAdmin => res.status(200).json({ status: true, file: req.file, admin: newAdmin }))
+      .catch(error => res.status(400).json({ status: false, error }))
   })
-  .catch(err => res.status(400).json({ err }))
+  .catch(error => res.status(400).json({ status: false, error }))
 });
 
 imagesRoutes.get(`${ROUTES.IMAGES.getImage}/:${ROUTES.IMAGES.paramFileName}`, (req, res) => {
   gfs.files.findOne({ filename: req.params[ROUTES.IMAGES.paramFileName] }, (err, file) => {
     if (!file || file.length === 0) {
-      return res.status(404).json({err: MESSAGES.noFileErr});
+      return res.status(404).json({error: MESSAGES.noFileErr});
     }
     if (file.contentType === 'image/jpeg' || file.contentType === 'image/png') {
       const readstream = gfs.createReadStream(file.filename);
       readstream.pipe(res);
     } else {
-      res.status(404).json({err: MESSAGES.noImgeErr});
+      res.status(404).json({error: MESSAGES.noImgeErr});
     }
   });
 });
@@ -65,16 +75,16 @@ imagesRoutes.get(`${ROUTES.IMAGES.getImage}/:${ROUTES.IMAGES.paramFileName}`, (r
 imagesRoutes.get(ROUTES.IMAGES.allImages, (req, res) => {
   gfs.files.find().toArray((err, files) => {
     if (!files || files.length === 0) {
-      return res.status(404).json({err: MESSAGES.noFilesErr});
+      return res.status(404).json({error: MESSAGES.noFilesErr});
     }
-    return res.json(files);
+    return res.status(200).json(files);
   });
 });
 
 imagesRoutes.delete(`${ROUTES.IMAGES.getImage}/:${ROUTES.IMAGES.paramId}`, (req, res) => {
-  gfs.remove({ _id: req.params[ROUTES.IMAGES.paramId], root: TYPE_NAMES.images }, (err, gridStore) => {
-    if (err) {
-      return res.status(404).json({ err: err });
+  gfs.remove({ _id: req.params[ROUTES.IMAGES.paramId], root: TYPE_NAMES.images }, (error, gridStore) => {
+    if (error) {
+      return res.status(404).json({ error });
     } 
     return res.status(200).json({ msg: MESSAGES.success });
   });

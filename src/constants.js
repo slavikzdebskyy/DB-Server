@@ -30,7 +30,7 @@ const ROUTES = {
   },
   IMAGES: {
     main: '/images',
-    uploadAdmin: '/upload-admin',
+    uploadAdmin: '/avatar-admin',
     getImage: '/image',
     paramFileName: 'filename',
     allImages: '/all-images',
