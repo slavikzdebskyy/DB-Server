@@ -11,11 +11,11 @@ import imagesRoutes from './routes/image-routes.js';
 import { ROUTES, TYPE_NAMES } from './constants';
 import schema from './grahql/shema';
 
-mongoose.connect(ROUTES.DB.devTest, {useNewUrlParser: true });
-// mongoose.connect(ROUTES.DB.main, {useNewUrlParser: true });
+// mongoose.connect(ROUTES.DB.devTest, {useNewUrlParser: true });
+mongoose.connect(ROUTES.DB.main, {useNewUrlParser: true });
 
-const conn = mongoose.createConnection(ROUTES.DB.devTest);
-// const conn = mongoose.createConnection(ROUTES.DB.main);
+// const conn = mongoose.createConnection(ROUTES.DB.devTest);
+const conn = mongoose.createConnection(ROUTES.DB.main);
 
 export let gfs;
 conn.once('open', () => {

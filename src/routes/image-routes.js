@@ -18,7 +18,7 @@ import {
 const imagesRoutes = express.Router();
 
 const storage = new GridFsStorage({
-  url: ROUTES.DB.devTest,
+  url: ROUTES.DB.main,
   file: (req, file) => {
     return new Promise((resolve, reject) => {
       crypto.randomBytes(CRYPTO_IMAGE_NAME_LENGTH, (err, buf) => {

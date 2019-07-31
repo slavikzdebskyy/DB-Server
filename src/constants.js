@@ -40,7 +40,7 @@ const ROUTES = {
     main: '/graphql',
   },
   DB: {
-    main: 'mongodb://127.0.0.1:27017/oleh-db',
+    main: 'mongodb://127.0.0.1:27017/sh-db',
     devTest: 'mongodb://node_server:8T0s5Q9j@ds341847.mlab.com:41847/oleh-srore',
   }
 }
