@@ -3,7 +3,6 @@ const HOSTNAME = 'localhost';
 const saltRounds = 12;
 const SECURITY_CODE_LENGTH = 6;
 const CRYPTO_IMAGE_NAME_LENGTH = 16;
-const JWT_SECRET = 'service help admin panel';
 
 const MODEL_NAMES = {
   adminModelName: 'administrators',
@@ -38,11 +37,7 @@ const ROUTES = {
   },
   GRAPHQL: {
     main: '/graphql',
-  },
-  DB: {
-    main: 'mongodb://127.0.0.1:27017/sh-db',
-    devTest: 'mongodb://node_server:8T0s5Q9j@ds341847.mlab.com:41847/oleh-srore',
-  }
+  },  
 }
 
 const MESSAGES = {
@@ -70,7 +65,6 @@ export {
   saltRounds,
   ROUTES,
   MESSAGES,
-  JWT_SECRET,
   SECURITY_CODE_LENGTH,
   TYPE_NAMES,
   CRYPTO_IMAGE_NAME_LENGTH,

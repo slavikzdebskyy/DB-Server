@@ -1,6 +1,7 @@
 
 import GridFsStorage from 'multer-gridfs-storage';
 import express from 'express';
+import dotenv from 'dotenv';
 import crypto from 'crypto';
 import multer from 'multer';
 import path from 'path';
@@ -14,11 +15,12 @@ import {
   MESSAGES,
 } from '../constants';
 
+dotenv.config();
 
 const imagesRoutes = express.Router();
 
 const storage = new GridFsStorage({
-  url: ROUTES.DB.main,
+  url: process.env.DB,
   file: (req, file) => {
     return new Promise((resolve, reject) => {
       crypto.randomBytes(CRYPTO_IMAGE_NAME_LENGTH, (err, buf) => {

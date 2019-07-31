@@ -1,21 +1,24 @@
 import expressGraphql from 'express-graphql';
+import bodyParser from 'body-parser';
+import grid from 'gridfs-stream';
 import mongoose from 'mongoose';
 import express from 'express';
-import bodyParser from 'body-parser';
+import dotenv from 'dotenv';
 import cors from 'cors';
-import grid from 'gridfs-stream';
 
-import adminRoutes from './routes/admin-routes';
-import testRoutes from './routes/tests-routes';
 import imagesRoutes from './routes/image-routes.js';
 import { ROUTES, TYPE_NAMES } from './constants';
+import adminRoutes from './routes/admin-routes';
+import testRoutes from './routes/tests-routes';
 import schema from './grahql/shema';
 
-// mongoose.connect(ROUTES.DB.devTest, {useNewUrlParser: true });
-mongoose.connect(ROUTES.DB.main, {useNewUrlParser: true });
+dotenv.config();
 
-// const conn = mongoose.createConnection(ROUTES.DB.devTest);
-const conn = mongoose.createConnection(ROUTES.DB.main);
+mongoose.connect(process.env.DB);
+// mongoose.connect(ROUTES.DB.main, {useNewUrlParser: true });
+
+const conn = mongoose.createConnection(process.env.DB);
+// const conn = mongoose.createConnection(ROUTES.DB.main);
 
 export let gfs;
 conn.once('open', () => {
