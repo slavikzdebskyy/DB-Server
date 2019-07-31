@@ -1,10 +1,12 @@
-import express from 'express';
-import Admin from '../mongo/admin.model';
-import { ROUTES, MESSAGES, SECURITY_CODE_LENGTH, saltRounds } from '../constants';
-import bcrypt from 'bcrypt';
-import { generateJwt } from '../libs/jwt-heleper';
-import { mailSender, mailOptionsRestore, mailOptionsChanged } from '../libs/mail.sender';
 import randomstring from 'randomstring';
+import express from 'express';
+import bcrypt from 'bcrypt';
+
+import { mailSender, mailOptionsRestore, mailOptionsChanged } from '../libs/mail.sender';
+import { ROUTES, MESSAGES, SECURITY_CODE_LENGTH, saltRounds } from '../constants';
+import { generateJwt } from '../libs/jwt-heleper';
+import Admin from '../mongo/admin.model';
+
 
 const adminRoutes = express.Router();
 

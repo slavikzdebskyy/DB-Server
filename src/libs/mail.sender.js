@@ -1,26 +1,25 @@
-
-import nodemailer from 'nodemailer';
 import smtpTransport from 'nodemailer-smtp-transport'; 
+import nodemailer from 'nodemailer';
+import dotenv from 'dotenv';
 
+dotenv.config();
 
 export const mailSender = nodemailer.createTransport(smtpTransport({
-  host: 'smtp.ukr.net',
-  port: 465,
+  host: process.env.MAIL_HOST,
+  port: process.env.MAIL_PORT,
   secure: true,
   tls: {
       rejectUnauthorized: false
   },
   auth: {
-    // user: 'zd_mouse@ukr.net',
-    user: 'polyakpro@ukr.net',
-    pass: 'lxtdt177',
-    // pass: 'qwerty!123'
+    user: process.env.MAIL_USER,
+    pass: process.env.MAIL_PSWRD,
   }
 }));
 
 export const mailOptionsRestore = (to, code) => {
   return {
-    from: 'polyakpro@ukr.net', 
+    from: process.env.MAIL_USER, 
     to: `${to}`,
     subject: 'Restore Password',
     html: `
@@ -32,7 +31,7 @@ export const mailOptionsRestore = (to, code) => {
 
 export const mailOptionsChanged = (to) => {
   return {
-    from: 'polyakpro@ukr.net', 
+    from: process.env.MAIL_USER, 
     to: `${to}`,
     subject: 'Password successfully changed',
     html: `
