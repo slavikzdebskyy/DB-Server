@@ -2,11 +2,21 @@ const PORT = 3000;
 const HOSTNAME = 'localhost';
 const saltRounds = 12;
 const SECURITY_CODE_LENGTH = 6;
+const CRYPTO_IMAGE_NAME_LENGTH = 16;
 const JWT_SECRET = 'service help admin panel';
 
 const MODEL_NAMES = {
   adminModelName: 'administrators',
   laptopModelName: 'laptops',
+  pc: 'ps',
+  monitor: 'monitor'
+}
+
+const TYPE_NAMES = {
+  laptop: 'Laptop',
+  monitor: 'Monitor',
+  pc: 'PC',
+  images: 'images',
 }
 
 const ROUTES = {
@@ -18,11 +28,19 @@ const ROUTES = {
     checkCode: '/check-security-code',
     changePassword: '/change-password',
   },
+  IMAGES: {
+    main: '/images',
+    uploadAdmin: '/avatar-admin',
+    getImage: '/image',
+    paramFileName: 'filename',
+    allImages: '/all-images',
+    paramId: 'id',
+  },
   GRAPHQL: {
     main: '/graphql',
   },
   DB: {
-    main: 'mongodb://127.0.0.1:27017/oleh-db',
+    main: 'mongodb://127.0.0.1:27017/sh-db',
     devTest: 'mongodb://node_server:8T0s5Q9j@ds341847.mlab.com:41847/oleh-srore',
   }
 }
@@ -38,7 +56,10 @@ const MESSAGES = {
   wrong_code: 'Wrong security code',
   success: 'Success',
   pswrdsNotEqual: 'Passwords not equal',
-  pswrdChanged: 'Password successfully changed'
+  pswrdChanged: 'Password successfully changed',
+  noImgeErr: 'No image exist',
+  noFileErr: 'No file exist',  
+  noFilesErr: 'No files exist',
 }
 
 
@@ -50,5 +71,7 @@ export {
   ROUTES,
   MESSAGES,
   JWT_SECRET,
-  SECURITY_CODE_LENGTH
+  SECURITY_CODE_LENGTH,
+  TYPE_NAMES,
+  CRYPTO_IMAGE_NAME_LENGTH,
 };

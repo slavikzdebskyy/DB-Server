@@ -1,17 +1,13 @@
 import * as graphql from 'graphql';
 import { TYPE_NAMES } from '../../../constants';
 
-export const laptopFields = {
-  barCode: { type: graphql.GraphQLString },    
+const pcFields = {
+  barCode: { type: graphql.GraphQLString },
   brand: { type: graphql.GraphQLString },    
   type: { type: graphql.GraphQLString },
   color: { type: graphql.GraphQLString },
   condition: { type: graphql.GraphQLString },
   guarantee: { type: graphql.GraphQLInt },
-  monitorSize: { type: graphql.GraphQLInt },
-  monitorResolution: { type: graphql.GraphQLString },
-  monitorCoverType: { type: graphql.GraphQLString },
-  monitorType: { type: graphql.GraphQLString },
   processor: { type: graphql.GraphQLString },
   coreAmount: { type: graphql.GraphQLInt },
   memoryRamType: { type: graphql.GraphQLString },
@@ -32,9 +28,8 @@ export const laptopFields = {
 };
 
 const type = {
-  name: TYPE_NAMES.laptop,
-  fields: laptopFields,
+  name: TYPE_NAMES.pc,
+  fields: pcFields,
 };
 
-export const LaptopType = new graphql.GraphQLObjectType(type);
-
+export const PCType = new graphql.GraphQLObjectType(type);

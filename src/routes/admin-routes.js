@@ -1,5 +1,5 @@
 import express from 'express';
-import Admin from '../mongo/admin.model'
+import Admin from '../mongo/admin.model';
 import { ROUTES, MESSAGES, SECURITY_CODE_LENGTH, saltRounds } from '../constants';
 import bcrypt from 'bcrypt';
 import { generateJwt } from '../libs/jwt-heleper';

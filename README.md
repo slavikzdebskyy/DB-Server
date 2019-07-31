@@ -8,6 +8,9 @@ API URL  | Request type | Request body | Response Status | Response Body | Respo
  `http://YOUR_HOST/administrators/restore-password` | POST | `{"email": String}` | 200 | `{"status": true, "msg": String}` | 404 / 409 | `{"status": false, error: "error" "msg": String}`
   `http://YOUR_HOST/administrators/check-security-code` | POST | `{"email": String, "code": String}` | 200 | `{"status": true, "msg": String}` | 403 / 409 | `{"status": false, error: "error" "msg": String}`
   `http://YOUR_HOST/administrators/change-password` | PATCH | `{"email": String, "password": String, "passwordConfirm": String}` | 200 | `{"status": true, "msg": String}` | 403 / 409 | `{"status": false, error: "error" "msg": String}`
+  `http://YOUR_HOST/images/avatar-admin` | POST | `{"file": File.jpeg/png, "email": String}` | 200 | `{"status": true, "file": Object, "admin": Object}` | 400 / 404 |`{ "status": false, "error": Object/String }`
+  `http://YOUR_HOST/images/all-images` | GET | - | 200 | `[Object]` | 400 | `{"error": String}`
+  `http://YOUR_HOST/images/image/:id` | DELETE | `:params : String` |200 | `{ msg: String }` | 404 | `{"error": String}`
   * |
   * |
   `http://YOUR_HOST/test/test` | GET

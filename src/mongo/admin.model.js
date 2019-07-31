@@ -10,5 +10,6 @@ export default mongoose.model(MODEL_NAMES.adminModelName, {
   password: {type: String, require: true},
   permission: {type: Number, require: true},
   securityCode: {type: String},
+  avatarId: {type: String},
 });
 
