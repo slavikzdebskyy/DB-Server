@@ -1,8 +1,9 @@
 // import { JWT_SECRET } from '../constants';
 import jwt from 'jsonwebtoken';
 import dotenv from 'dotenv';
+import path from 'path';
 
-dotenv.config();
+dotenv.config({ path: path.resolve(__dirname, '../../.env') });
 
 export const verifyJwt = (token) => {
   let decoded = false;

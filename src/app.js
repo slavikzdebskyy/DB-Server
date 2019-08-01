@@ -4,6 +4,7 @@ import grid from 'gridfs-stream';
 import mongoose from 'mongoose';
 import express from 'express';
 import dotenv from 'dotenv';
+import path from 'path';
 import cors from 'cors';
 
 import imagesRoutes from './routes/image-routes.js';
@@ -12,7 +13,7 @@ import adminRoutes from './routes/admin-routes';
 import testRoutes from './routes/tests-routes';
 import schema from './grahql/shema';
 
-dotenv.config();
+dotenv.config({ path: path.resolve(__dirname, '../.env') });
 
 mongoose.connect(process.env.DB);
 // mongoose.connect(ROUTES.DB.main, {useNewUrlParser: true });
