@@ -15,7 +15,7 @@ import {
   MESSAGES,
 } from '../constants';
 
-dotenv.config();
+dotenv.config({ path: path.resolve(__dirname, '../../.env') });
 
 const imagesRoutes = express.Router();
 
