@@ -122,7 +122,7 @@ imagesRoutes.delete(`${ROUTES.IMAGES.delImage}/:${ROUTES.IMAGES.paramId}`, (req,
 
 /**
  * Add images array
- * @param @param {id: String, files: [jpeg/png]} 
+ * @param {id: String, files: [jpeg/png]} 
  */
 
 imagesRoutes.post(ROUTES.IMAGES.massAdd, upload.array('files'), (request, response) => { 
