@@ -16,6 +16,7 @@ const TYPE_NAMES = {
   monitor: 'Monitor',
   pc: 'PC',
   images: 'images',
+  productImage: 'ProductImage'
 }
 
 const ROUTES = {
@@ -29,8 +30,10 @@ const ROUTES = {
   },
   IMAGES: {
     main: '/images',
-    uploadAdmin: '/avatar-admin',
+    uploadAdmin: '/add-avatar-admin',
+    massAdd: '/add-images-mass',
     getImage: '/image',
+    delImage: '/remove-image',
     paramFileName: 'filename',
     allImages: '/all-images',
     paramId: 'id',

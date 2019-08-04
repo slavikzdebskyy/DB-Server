@@ -20,9 +20,9 @@ const mutation = new graphql.GraphQLObjectType({
   name: "Mutation",
   fields: {      
     addAdmin,
-    addLaptop,
-    addPC,
-    addMonitor,
+    // addLaptop,
+    // addPC,
+    // addMonitor,
   }
 });
 

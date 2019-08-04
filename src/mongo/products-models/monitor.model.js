@@ -2,6 +2,7 @@ import mongoose from 'mongoose';
 import { MODEL_NAMES } from '../../constants';
 
 export default mongoose.model(MODEL_NAMES.monitor, {
+  _id: mongoose.Schema.Types.ObjectId,
   barCode: {type: String, require: true},
   brand: {type: String, require: true},
   monitorType: {type: String, require: true},  
@@ -13,7 +14,7 @@ export default mongoose.model(MODEL_NAMES.monitor, {
   connectors: {type: String, require: true},  
   options: {type: String, require: true},
   description: {type: String, require: true},
-  images: {type: [String], require: true},
+  images: {type: [Object]},
   buyStatus: {type: String, require: true},
   payStatus: {type: Boolean },
   loacation: {type: String },

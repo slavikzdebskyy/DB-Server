@@ -1,7 +1,9 @@
 import * as graphql from 'graphql';
 import { TYPE_NAMES } from '../../../constants';
+import { productImageType } from './product-image.type';
 
 export const laptopFields = {
+  id: { type: graphql.GraphQLString }, 
   barCode: { type: graphql.GraphQLString },    
   brand: { type: graphql.GraphQLString },    
   type: { type: graphql.GraphQLString },
@@ -24,7 +26,7 @@ export const laptopFields = {
   driveSecondMemoryAmount: { type: graphql.GraphQLInt },
   options: { type: graphql.GraphQLString },
   description: { type: graphql.GraphQLString },
-  images: { type: graphql.GraphQLList(graphql.GraphQLString) },
+  images: { type: graphql.GraphQLList(productImageType) },
   buyStatus: { type: graphql.GraphQLString },
   payStatus: { type: graphql.GraphQLBoolean },
   loacation: { type: graphql.GraphQLString },

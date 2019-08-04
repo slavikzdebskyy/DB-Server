@@ -16,16 +16,16 @@ import schema from './grahql/shema';
 dotenv.config({ path: path.resolve(__dirname, '../.env') });
 
 mongoose.connect(process.env.DB);
-// mongoose.connect(ROUTES.DB.main, {useNewUrlParser: true });
 
-const conn = mongoose.createConnection(process.env.DB);
-// const conn = mongoose.createConnection(ROUTES.DB.main);
+export const conn = mongoose.createConnection(process.env.DB);
 
 export let gfs;
 conn.once('open', () => {
   gfs = grid(conn.db, mongoose.mongo);
   gfs.collection(TYPE_NAMES.images);
 });
+
+
 
 const app = express();
 
