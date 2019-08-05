@@ -34,6 +34,7 @@ const ROUTES = {
     massAdd: '/add-images-mass',
     getImage: '/image',
     delImage: '/remove-image',
+    delMassImage: '/remove-images-mass',
     paramFileName: 'filename',
     allImages: '/all-images',
     paramId: 'id',
