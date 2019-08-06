@@ -43,7 +43,7 @@ const upload = multer({ storage });
 
 /**
  * Upload Image for Admin
- * @param {file: jpeg/png} file
+ * @param {file: jpeg/png} file?
  * @param {email: String} email
  */
 imagesRoutes.post(ROUTES.IMAGES.uploadAdmin, upload.single('file'), (request, response) => {
@@ -56,10 +56,10 @@ imagesRoutes.post(ROUTES.IMAGES.uploadAdmin, upload.single('file'), (request, re
           } 
         });
     }
-    admin.avatar = `${ROUTES.IMAGES.main}${ROUTES.IMAGES.getImage}/${request.file.filename}`;
-    admin.avatarId = request.file.id;
+    admin.avatar = request.file ? `${ROUTES.IMAGES.main}${ROUTES.IMAGES.getImage}/${request.file.filename}` : null;
+    admin.avatarId = request.file ? request.file.id: null;
     admin.save()
-      .then(newAdmin => response.status(200).json({ status: true, file: request.file, admin: newAdmin }))
+      .then(newAdmin => response.status(200).json({ status: true, file: request.file ? request.file : null, admin: newAdmin }))
       .catch(error => response.status(400).json({ status: false, error }))
   })
   .catch(error => response.status(400).json({ status: false, error }))
