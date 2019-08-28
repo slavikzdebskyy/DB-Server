@@ -12,4 +12,10 @@ const type = {
   fields: productImageFields,
 };
 
+const typeInput = {
+  name: TYPE_NAMES.productInputImage,
+  fields: productImageFields,
+};
+
 export const productImageType = new graphql.GraphQLObjectType(type);
+export const productImageInputType = new graphql.GraphQLInputObjectType(typeInput);

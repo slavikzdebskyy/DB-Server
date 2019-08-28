@@ -1,8 +1,9 @@
 import * as graphql from 'graphql';
-import { productImageType } from './product-image.type';
+
+import { productImageType, productImageInputType } from './product-image.type';
 import { TYPE_NAMES } from '../../../constants';
 
-export const monitorFields = {
+const fields = {
   id: { type: graphql.GraphQLString }, 
   barCode: { type: graphql.GraphQLString },
   brand: { type: graphql.GraphQLString },
@@ -15,12 +16,25 @@ export const monitorFields = {
   connectors: { type: graphql.GraphQLString },  
   options: { type: graphql.GraphQLString },
   description: { type: graphql.GraphQLString },
-  images: { type: graphql.GraphQLList(productImageType) },
   buyStatus: { type: graphql.GraphQLString },
   payStatus: { type: graphql.GraphQLBoolean },
   loacation: { type: graphql.GraphQLString },
   seo: { type: graphql.GraphQLString },
+  productType: { type: graphql.GraphQLString },
+  createdAt: { type: graphql.GraphQLString },
+  updatedAt: { type: graphql.GraphQLString },
+  price: { type: graphql.GraphQLInt },
+  isInStock: { type: graphql.GraphQLBoolean },
+  discount: { type: graphql.GraphQLInt },
+  quantity: { type: graphql.GraphQLInt }, 
 };
+
+export const monitorFields = Object.assign(
+  {images: { type: graphql.GraphQLList(productImageType) }}, fields
+);
+export const monitorMutationFields = Object.assign(
+  {images: { type: new graphql.GraphQLList(productImageInputType) }}, fields
+);
 
 const type = {
   name: TYPE_NAMES.monitor,

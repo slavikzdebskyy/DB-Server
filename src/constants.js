@@ -16,7 +16,8 @@ const TYPE_NAMES = {
   monitor: 'Monitor',
   pc: 'PC',
   images: 'images',
-  productImage: 'ProductImage'
+  productImage: 'ProductImage',
+  productInputImage: 'ProductInputImage'
 }
 
 const ROUTES = {
