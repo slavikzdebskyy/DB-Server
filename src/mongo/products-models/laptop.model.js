@@ -26,6 +26,7 @@ export default mongoose.model(MODEL_NAMES.laptopModelName, {
   options: {type: String, require: true},
   description: {type: String, require: true},
   images: {type: [Object]},
+  imageHead: {type: Object},
   buyStatus: {type: String, require: true},
   payStatus: {type: Boolean },
   loacation: {type: String },

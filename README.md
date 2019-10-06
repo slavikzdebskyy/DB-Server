@@ -13,6 +13,7 @@ API URL  | Request type | Request body | Response Status | Response Body | Respo
   `http://YOUR_HOST/images/remove-image/:id` | DELETE | `:params : String` |200 | `{ msg: String }` | 404 | `{"error": String}`
   `http://YOUR_HOST/images/remove-image/:id` | POST | `{"files": [File.jpeg/png], "id": String}` | 200 | `{"status": true, "product": Product}` | 400 / 404 | `{ "status": false, "error": Object | String }`
   `http://YOUR_HOST/images/remove-images-mass` | DELETE | `{"imageNames": [String], "productId": String}` |200 | `{"status": true, "product": Product}` | 404 | `{"status": false, "error": Object | String}`
+  `http://YOUR_HOST/images/set-head-image` | POST | `{"product_id": String, "image_id": String}` | 200 | `{"status": true, "product": Product}` | 404 | `{"status": false, "error": Object | String}`
 
 
 

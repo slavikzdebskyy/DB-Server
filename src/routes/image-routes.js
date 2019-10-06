@@ -178,4 +178,26 @@ imagesRoutes.delete(ROUTES.IMAGES.delMassImage, (request, response) => {
 });
 
 
+/**
+ * Set product's  head image 
+ * @param {string} product_id
+ * @param {{string} image_id
+ */
+imagesRoutes.post(ROUTES.IMAGES.setHeadImage, (request, response) => {   
+  const query = { _id: request.body.product_id };
+  const laptop = Laptop.findOne(query);
+  const monitor = Monitor.findOne(query);
+  const pc = PC.findOne(query);
+  Promise.all([laptop, monitor, pc])
+    .then((result) => { 
+      const product = result.find(el=> !!el);
+      product.imageHead = product.images.find(image => image.id.toString() === request.body.image_id.toString());        
+      product.save()
+        .then(newProduct => response.status(200).json({ status: true, product: newProduct }))
+        .catch(error => response.status(400).json({ status: false, error }));
+    })
+    .catch((error) => response.status(400).json({ status: false, error }));  
+});
+
+
 export default imagesRoutes;

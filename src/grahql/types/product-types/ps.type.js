@@ -38,10 +38,16 @@ const fields = {
 };
 
 export const pcFields = Object.assign(
-  {images: { type: graphql.GraphQLList(productImageType) }}, fields
+  {
+    images: { type: graphql.GraphQLList(productImageType) },
+    imageHead: { type: productImageType },
+  }, fields
 );
 export const pcMutationFields = Object.assign(
-  {images: { type: new graphql.GraphQLList(productImageInputType) }}, fields
+  {
+    images: { type: new graphql.GraphQLList(productImageInputType) },
+    imageHead: { type: productImageInputType },
+  }, fields
 );
 
 const type = {
