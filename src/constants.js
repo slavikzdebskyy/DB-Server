@@ -43,7 +43,12 @@ const ROUTES = {
   },
   GRAPHQL: {
     main: '/graphql',
-  },  
+  },
+  PRODUCT: {
+    main: '/product',
+    findOne: '/find-one',
+    productId: 'product_id',
+  }
 }
 
 const MESSAGES = {

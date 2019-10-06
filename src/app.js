@@ -7,8 +7,9 @@ import dotenv from 'dotenv';
 import path from 'path';
 import cors from 'cors';
 
-import imagesRoutes from './routes/image-routes.js';
 import { ROUTES, TYPE_NAMES } from './constants';
+import productRoutes from './routes/product-routes';
+import imagesRoutes from './routes/image-routes.js';
 import adminRoutes from './routes/admin-routes';
 import testRoutes from './routes/tests-routes';
 import schema from './grahql/shema';
@@ -49,6 +50,7 @@ app.set('view engine', 'ejs');
 
 app.use(ROUTES.ADMIN.main, adminRoutes);
 app.use(ROUTES.IMAGES.main, imagesRoutes);
+app.use(ROUTES.PRODUCT.main, productRoutes);
 app.use(ROUTES.test, testRoutes);
 
 export default app;
