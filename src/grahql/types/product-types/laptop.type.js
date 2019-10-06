@@ -37,14 +37,20 @@ const fields = {
   price: { type: graphql.GraphQLInt },
   isInStock: { type: graphql.GraphQLBoolean },
   discount: { type: graphql.GraphQLInt },
-  quantity: { type: graphql.GraphQLInt }, 
+  quantity: { type: graphql.GraphQLInt },
 };
 
 export const laptopFields = Object.assign(
-  {images: { type: graphql.GraphQLList(productImageType) }}, fields
+  {
+    images: { type: graphql.GraphQLList(productImageType) },
+    imageHead: { type: productImageType },
+  }, fields
 );
 export const laptopMutationFields = Object.assign(
-  {images: { type: new graphql.GraphQLList(productImageInputType) }}, fields
+  {
+    images: { type: new graphql.GraphQLList(productImageInputType) },
+    imageHead: { type: productImageInputType },
+  }, fields
 );
 
 const type = {

@@ -39,6 +39,7 @@ const ROUTES = {
     paramFileName: 'filename',
     allImages: '/all-images',
     paramId: 'id',
+    setHeadImage: '/set-head-image'
   },
   GRAPHQL: {
     main: '/graphql',
