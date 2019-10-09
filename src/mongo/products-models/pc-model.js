@@ -1,10 +1,11 @@
 import mongoose from 'mongoose';
-import { MODEL_NAMES } from '../../constants';
+import { MODEL_NAMES, TYPE_NAMES } from '../../constants';
 
 export default mongoose.model(MODEL_NAMES.pc, {
   _id: mongoose.Schema.Types.ObjectId,
   barCode: {type: String, require: true},
   brand: {type: String, require: true},
+  name: {type: String, require: true},
   type: {type: String, require: true},
   color: {type: String, require: true},
   condition: {type: String, require: true},
@@ -35,7 +36,7 @@ export default mongoose.model(MODEL_NAMES.pc, {
   isInStock: {type: Boolean, require: true},
   discount: {type: Number, require: true},
   quantity: {type: Number, require: true},
-
+  productType: {type: String, default: TYPE_NAMES.pc },
 });
 
   // barCode => Штрих-код

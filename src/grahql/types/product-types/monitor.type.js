@@ -6,7 +6,8 @@ import { TYPE_NAMES } from '../../../constants';
 const fields = {
   id: { type: graphql.GraphQLString }, 
   barCode: { type: graphql.GraphQLString },
-  brand: { type: graphql.GraphQLString },
+  brand: { type: graphql.GraphQLString },   
+  name: { type: graphql.GraphQLString },   
   monitorType: { type: graphql.GraphQLString },  
   monitorResolution: { type: graphql.GraphQLString },
   monitorSize: { type: graphql.GraphQLInt },
