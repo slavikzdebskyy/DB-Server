@@ -191,7 +191,11 @@ imagesRoutes.post(ROUTES.IMAGES.setHeadImage, (request, response) => {
   Promise.all([laptop, monitor, pc])
     .then((result) => { 
       const product = result.find(el=> !!el);
-      product.imageHead = product.images.find(image => image.id.toString() === request.body.image_id.toString());        
+      const imageHead = product.images.find(image => image.id.toString() === request.body.image_id.toString()); 
+      if (!imageHead) {
+        response.status(400).json({ status: false, msg: MESSAGES.noImgeErr })
+      }    
+      product.imageHead = imageHead;   
       product.save()
         .then(newProduct => response.status(200).json({ status: true, product: newProduct }))
         .catch(error => response.status(400).json({ status: false, error }));

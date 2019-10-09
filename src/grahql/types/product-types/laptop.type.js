@@ -7,6 +7,7 @@ const fields = {
   id: { type: graphql.GraphQLString }, 
   barCode: { type: graphql.GraphQLString },    
   brand: { type: graphql.GraphQLString },    
+  name: { type: graphql.GraphQLString },    
   type: { type: graphql.GraphQLString },
   color: { type: graphql.GraphQLString },
   condition: { type: graphql.GraphQLString },
