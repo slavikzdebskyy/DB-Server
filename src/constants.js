@@ -9,7 +9,7 @@ const MODEL_NAMES = {
   laptopModelName: 'laptops',
   pc: 'ps',
   monitor: 'monitor'
-}
+};
 
 const TYPE_NAMES = {
   laptop: 'Laptop',
@@ -18,7 +18,7 @@ const TYPE_NAMES = {
   images: 'images',
   productImage: 'ProductImage',
   productInputImage: 'ProductInputImage'
-}
+};
 
 const ROUTES = {
   test: '/test',
@@ -49,11 +49,10 @@ const ROUTES = {
     findOne: '/find-one',
     productId: 'product_id',
   }
-}
+};
 
 const MESSAGES = {
   admin_not_registered: 'Administrator with this email not registered',
-  wrong_pswrd: 'Incorrect password',
   cant_login: 'Can\'t login. Something went wrong...',
   cant_logout: 'Can\'t log out. Something went wrong...',
   admin_exist: 'Administrator with this email already exists',
@@ -67,7 +66,12 @@ const MESSAGES = {
   noImgeErr: 'No image exist',
   noFileErr: 'No file exist',  
   noFilesErr: 'No files exist',
-}
+  wrong_pswrd: 'Can\'t login. Wrong password',
+  incorrect_email: 'Incorrect email',
+  length_pwrd: 'Min password\'s length should be 6 symbols',
+  bad_request: 'Bad request',
+  server_error: 'Server error'
+};
 
 
 export {
