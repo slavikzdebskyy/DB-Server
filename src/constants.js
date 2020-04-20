@@ -1,4 +1,3 @@
-const PORT = 3000;
 const HOSTNAME = 'localhost';
 const saltRounds = 12;
 const SECURITY_CODE_LENGTH = 6;
@@ -22,15 +21,16 @@ const TYPE_NAMES = {
 
 const ROUTES = {
   test: '/test',
+  main: '/api',
   ADMIN: {
-    main: '/administrators',
+    main: '/api/administrators',
     login: '/login-admin',   
     restorePswrd: '/restore-password',
     checkCode: '/check-security-code',
     changePassword: '/change-password',
   },
   IMAGES: {
-    main: '/images',
+    main: '/api/images',
     uploadAdmin: '/add-remove-avatar-admin',
     massAdd: '/add-images-mass',
     getImage: '/image',
@@ -42,10 +42,10 @@ const ROUTES = {
     setHeadImage: '/set-head-image'
   },
   GRAPHQL: {
-    main: '/graphql',
+    main: '/api/graphql',
   },
   PRODUCT: {
-    main: '/product',
+    main: '/api/product',
     findOne: '/find-one',
     productId: 'product_id',
   }
@@ -75,7 +75,6 @@ const MESSAGES = {
 
 
 export {
-  PORT, 
   HOSTNAME,
   MODEL_NAMES,
   saltRounds,
