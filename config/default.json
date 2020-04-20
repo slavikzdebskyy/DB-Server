@@ -1,0 +1,11 @@
+{
+  "port": 3000,
+  "mongoUri": "mongodb://node_server:8T0s5Q9j@ds341847.mlab.com:41847/oleh-srore",
+  "jwtSeecret": "service help admin panel",
+  "mailSender": {
+    "MAIL_HOST":  "smtp.ukr.net",
+    "MAIL_USER": "polyakpro@ukr.net",
+    "MAIL_PSWRD": "2VnAuN5sm6KMWZYG",
+    "MAIL_PORT": 465
+  }
+}

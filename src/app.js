@@ -3,8 +3,7 @@ import bodyParser from 'body-parser';
 import grid from 'gridfs-stream';
 import mongoose from 'mongoose';
 import express from 'express';
-import dotenv from 'dotenv';
-import path from 'path';
+import config from 'config';
 import cors from 'cors';
 
 import { ROUTES, TYPE_NAMES } from './constants';
@@ -14,11 +13,10 @@ import adminRoutes from './routes/admin-routes';
 import testRoutes from './routes/tests-routes';
 import schema from './grahql/shema';
 
-dotenv.config({ path: path.resolve(__dirname, '../.env') });
+const mongoUri = config.get('mongoUri');
+mongoose.connect(mongoUri);
 
-mongoose.connect(process.env.DB);
-
-export const conn = mongoose.createConnection(process.env.DB);
+export const conn = mongoose.createConnection(mongoUri);
 
 export let gfs;
 conn.once('open', () => {
@@ -35,17 +33,17 @@ const corsOptions = {
   "methods": "GET,HEAD,PUT,PATCH,POST,DELETE",
   "preflightContinue": false,
   "optionsSuccessStatus": 204
-}
+};
 const graphqlConfig = {
   schema: schema,
   graphiql: true,
-}
+};
 
 
 app.use(ROUTES.GRAPHQL.main, cors(corsOptions), expressGraphql(graphqlConfig));
 app.use(bodyParser.urlencoded({extamded: false}));
 app.use(bodyParser.json());
-app.use(cors(corsOptions))
+app.use(cors(corsOptions));
 app.set('view engine', 'ejs');
 
 app.use(ROUTES.ADMIN.main, adminRoutes);

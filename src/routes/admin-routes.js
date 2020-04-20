@@ -10,6 +10,15 @@ import Admin from '../mongo/admin.model';
 
 const adminRoutes = express.Router();
 
+/**
+ * @method: POST
+ * @body: JSON
+ * {
+ *  email: string;
+ *  password: string;
+ *  }
+ *  @Authefication:
+ * */
 adminRoutes.post(
   ROUTES.ADMIN.login,
   [
@@ -50,6 +59,12 @@ adminRoutes.post(
   }
 });
 
+/**
+ * @method: POST
+ * @body: JSON
+ * { email: string; }
+ *  @Authefication:
+ * */
 adminRoutes.post(
   ROUTES.ADMIN.restorePswrd,
   [
@@ -86,7 +101,15 @@ adminRoutes.post(
   }
 });
 
-
+/**
+ * @method: POST
+ * @body: JSON
+ * {
+ *  email: string;
+ *  code: string;
+ *  }
+ *  @Authefication:
+ * */
 adminRoutes.post(
   ROUTES.ADMIN.checkCode,
   [
@@ -121,7 +144,16 @@ adminRoutes.post(
     }
 });
 
-
+/**
+ * @method: PATCH
+ * @body: JSON:
+ * {
+ *  email: string;
+ *  password: string;
+ *  passwordConfirm: string
+ *  }
+ *  @Authefication:
+ * */
 adminRoutes.patch(
   ROUTES.ADMIN.changePassword,
   [
@@ -141,8 +173,7 @@ adminRoutes.patch(
         return response.status(401).json({ status: false, message: MESSAGES.admin_not_registered });
       }
 
-      const hash = await bcrypt.hash(request.body.password, saltRounds);
-      admin.password = hash;
+      admin.password = await bcrypt.hash(request.body.password, saltRounds);
       const newAdmin = await admin.save();
       const info = await mailSender.sendMail(mailOptionsChanged(newAdmin.email));
       if (!info) {
